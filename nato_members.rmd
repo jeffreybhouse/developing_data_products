@@ -1,0 +1,25 @@
+---
+title: "NATO Members' Capitals and Year of Membership"
+author: "jbh"
+date: "August 11, 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(leaflet)
+library(dplyr)
+
+nato <- read.csv("nato_capitals.csv", header = TRUE)
+
+popup_txt <- paste0(nato$capital, " <br> ", nato$nation, " <br> ", nato$joined)
+
+nato %>% 
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(lat = nato$latitude, lng = nato$longitude, popup = popup_txt)
+
+```
